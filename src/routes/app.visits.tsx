@@ -57,7 +57,7 @@ function Visits() {
                         <div className="text-sm font-semibold">{e.pet}</div>
                         <div className="text-[11px] text-muted-foreground">{e.reason}</div>
                       </div>
-                      <Badge tone={e.tone}>{e.reason.includes("جراحی") ? "آماده" : "تأیید"}</Badge>
+                      <Badge tone={e.tone === "primary" ? "default" : e.tone}>{e.reason.includes("جراحی") ? "آماده" : "تأیید"}</Badge>
                     </div>
                   ))}
                   {!EVENTS[s] && (
