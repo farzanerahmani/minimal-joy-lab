@@ -1,5 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { PawPrint, ArrowLeft, ArrowRight } from "lucide-react";
+import { PawPrint, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { authService } from "@/lib/api/services";
+import { auth, ApiError } from "@/lib/api/client";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
