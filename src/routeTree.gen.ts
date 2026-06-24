@@ -9,11 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppVisitsRouteImport } from './routes/app.visits'
 import { Route as AppUsersRouteImport } from './routes/app.users'
 import { Route as AppSmsRouteImport } from './routes/app.sms'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppReportsRouteImport } from './routes/app.reports'
 import { Route as AppRemindersRouteImport } from './routes/app.reminders'
 import { Route as AppPricingRouteImport } from './routes/app.pricing'
@@ -21,6 +23,11 @@ import { Route as AppPrescriptionsRouteImport } from './routes/app.prescriptions
 import { Route as AppPatientsRouteImport } from './routes/app.patients'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -44,6 +51,11 @@ const AppUsersRoute = AppUsersRouteImport.update({
 const AppSmsRoute = AppSmsRouteImport.update({
   id: '/sms',
   path: '/sms',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
 const AppReportsRoute = AppReportsRouteImport.update({
@@ -80,12 +92,14 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/patients': typeof AppPatientsRoute
   '/app/prescriptions': typeof AppPrescriptionsRoute
   '/app/pricing': typeof AppPricingRoute
   '/app/reminders': typeof AppRemindersRoute
   '/app/reports': typeof AppReportsRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/sms': typeof AppSmsRoute
   '/app/users': typeof AppUsersRoute
   '/app/visits': typeof AppVisitsRoute
@@ -93,12 +107,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/patients': typeof AppPatientsRoute
   '/app/prescriptions': typeof AppPrescriptionsRoute
   '/app/pricing': typeof AppPricingRoute
   '/app/reminders': typeof AppRemindersRoute
   '/app/reports': typeof AppReportsRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/sms': typeof AppSmsRoute
   '/app/users': typeof AppUsersRoute
   '/app/visits': typeof AppVisitsRoute
@@ -107,12 +123,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/patients': typeof AppPatientsRoute
   '/app/prescriptions': typeof AppPrescriptionsRoute
   '/app/pricing': typeof AppPricingRoute
   '/app/reminders': typeof AppRemindersRoute
   '/app/reports': typeof AppReportsRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/sms': typeof AppSmsRoute
   '/app/users': typeof AppUsersRoute
   '/app/visits': typeof AppVisitsRoute
@@ -122,12 +140,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/login'
     | '/app/dashboard'
     | '/app/patients'
     | '/app/prescriptions'
     | '/app/pricing'
     | '/app/reminders'
     | '/app/reports'
+    | '/app/settings'
     | '/app/sms'
     | '/app/users'
     | '/app/visits'
@@ -135,12 +155,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app'
+    | '/login'
     | '/app/dashboard'
     | '/app/patients'
     | '/app/prescriptions'
     | '/app/pricing'
     | '/app/reminders'
     | '/app/reports'
+    | '/app/settings'
     | '/app/sms'
     | '/app/users'
     | '/app/visits'
@@ -148,12 +170,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/login'
     | '/app/dashboard'
     | '/app/patients'
     | '/app/prescriptions'
     | '/app/pricing'
     | '/app/reminders'
     | '/app/reports'
+    | '/app/settings'
     | '/app/sms'
     | '/app/users'
     | '/app/visits'
@@ -162,10 +186,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -199,6 +231,13 @@ declare module '@tanstack/react-router' {
       path: '/sms'
       fullPath: '/app/sms'
       preLoaderRoute: typeof AppSmsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/reports': {
@@ -253,6 +292,7 @@ interface AppRouteChildren {
   AppPricingRoute: typeof AppPricingRoute
   AppRemindersRoute: typeof AppRemindersRoute
   AppReportsRoute: typeof AppReportsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppSmsRoute: typeof AppSmsRoute
   AppUsersRoute: typeof AppUsersRoute
   AppVisitsRoute: typeof AppVisitsRoute
@@ -265,6 +305,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppPricingRoute: AppPricingRoute,
   AppRemindersRoute: AppRemindersRoute,
   AppReportsRoute: AppReportsRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppSmsRoute: AppSmsRoute,
   AppUsersRoute: AppUsersRoute,
   AppVisitsRoute: AppVisitsRoute,
@@ -275,6 +316,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
