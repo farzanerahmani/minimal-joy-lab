@@ -15,6 +15,7 @@ const NAV = [
   { to: "/app/reports", label: "گزارش‌ها", icon: BarChart3 },
   { to: "/app/pricing", label: "تعرفه خدمات", icon: Wallet },
   { to: "/app/users", label: "کاربران و دسترسی", icon: Users },
+  { to: "/app/settings", label: "تنظیمات", icon: Settings },
 ];
 
 export function AppShell({ children, title, subtitle, action }: {
