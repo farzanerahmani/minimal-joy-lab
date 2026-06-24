@@ -16,6 +16,34 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("dr.ahmadi@parsa.vet");
+  const [password, setPassword] = useState("password");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    try {
+      await authService.login({ email, password });
+      navigate({ to: "/app/dashboard" });
+    } catch (err) {
+      // اگر بک‌اند در دسترس نباشد، در حالت دمو وارد می‌شویم
+      if (err instanceof ApiError && err.status >= 400 && err.status < 500) {
+        setError(err.message || "ایمیل یا رمز عبور نادرست است.");
+      } else {
+        // خطای شبکه/سرور: ورود دمو
+        auth.setSession("demo-token", {
+          id: 1, fullName: "دکتر احمدی", email, role: "VET",
+        });
+        navigate({ to: "/app/dashboard" });
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen grid lg:grid-cols-2">
       <section className="relative hidden lg:flex flex-col justify-between p-12 bg-primary text-primary-foreground overflow-hidden">
