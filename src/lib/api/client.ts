@@ -97,10 +97,10 @@ export async function api<T = unknown>(path: string, opts: Options = {}): Promis
 
   if (!res.ok) {
     if (res.status === 401) auth.clear();
-    const message =
-      (data && typeof data === "object" && "message" in data && String((data as Record<string, unknown>).message)) ||
-      res.statusText ||
-      "خطای ارتباط با سرور";
+    let message = res.statusText || "خطای ارتباط با سرور";
+    if (data && typeof data === "object" && "message" in data) {
+      message = String((data as Record<string, unknown>).message);
+    }
     throw new ApiError(message, res.status, data);
   }
   return data as T;
