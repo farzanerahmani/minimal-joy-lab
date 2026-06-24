@@ -89,12 +89,25 @@ function LoginPage() {
             <p className="text-sm text-muted-foreground mt-1">ایمیل و رمز عبور خود را وارد کنید.</p>
           </div>
 
-          <form
-            className="space-y-4"
-            onSubmit={(e) => { e.preventDefault(); navigate({ to: "/app/dashboard" }); }}
-          >
-            <Field label="ایمیل یا نام کاربری" placeholder="you@clinic.com" defaultValue="dr.ahmadi@parsa.vet" />
-            <Field label="رمز عبور" type="password" placeholder="••••••••" defaultValue="password" />
+          <form className="space-y-4" onSubmit={onSubmit}>
+            <Field
+              label="ایمیل یا نام کاربری"
+              placeholder="you@clinic.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Field
+              label="رمز عبور"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {error && (
+              <div className="rounded-lg bg-destructive/10 text-destructive text-xs px-3 py-2">{error}</div>
+            )}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-muted-foreground">
                 <input type="checkbox" className="accent-primary" defaultChecked /> مرا به خاطر بسپار
@@ -103,10 +116,10 @@ function LoginPage() {
             </div>
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition shadow-sm shadow-primary/20"
+              disabled={loading}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition shadow-sm shadow-primary/20 disabled:opacity-70"
             >
-              ورود به پنل
-              <ArrowLeft className="h-4 w-4" />
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <>ورود به پنل <ArrowLeft className="h-4 w-4" /></>}
             </button>
           </form>
 
