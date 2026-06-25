@@ -42,43 +42,44 @@
 
 :root {
   --radius: 0.875rem;
-  /* Warm cream paper background */
-  --background: oklch(0.985 0.005 90);
-  --foreground: oklch(0.22 0.02 200);
+  /* Cool paper background with a hint of blue */
+  --background: oklch(0.985 0.006 230);
+  --foreground: oklch(0.20 0.04 250);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.02 200);
+  --card-foreground: oklch(0.20 0.04 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.02 200);
+  --popover-foreground: oklch(0.20 0.04 250);
 
-  /* Deep teal — calm, medical, trustworthy */
-  --primary: oklch(0.48 0.08 195);
-  --primary-foreground: oklch(0.985 0.005 90);
-  --primary-soft: oklch(0.93 0.04 190);
+  /* Deep ocean blue — professional, trustworthy, medical */
+  --primary: oklch(0.40 0.09 245);
+  --primary-foreground: oklch(0.985 0.006 230);
+  --primary-soft: oklch(0.93 0.04 235);
 
-  --secondary: oklch(0.96 0.01 200);
-  --secondary-foreground: oklch(0.28 0.03 200);
+  --secondary: oklch(0.96 0.012 230);
+  --secondary-foreground: oklch(0.26 0.05 245);
 
-  --muted: oklch(0.955 0.008 100);
-  --muted-foreground: oklch(0.5 0.02 210);
+  --muted: oklch(0.955 0.01 230);
+  --muted-foreground: oklch(0.5 0.03 240);
 
-  --accent: oklch(0.93 0.06 75);
-  --accent-foreground: oklch(0.3 0.05 60);
+  /* Soft cyan accent (from #5cbdb9 / #2d8a9e) */
+  --accent: oklch(0.92 0.04 210);
+  --accent-foreground: oklch(0.30 0.06 230);
 
   --destructive: oklch(0.58 0.18 25);
-  --destructive-foreground: oklch(0.985 0.005 90);
-  --success: oklch(0.62 0.13 155);
+  --destructive-foreground: oklch(0.985 0.006 230);
+  --success: oklch(0.62 0.13 165);
   --warning: oklch(0.78 0.14 75);
   --info: oklch(0.62 0.11 230);
 
-  --border: oklch(0.9 0.012 100);
-  --input: oklch(0.92 0.01 100);
-  --ring: oklch(0.55 0.08 195);
+  --border: oklch(0.9 0.012 230);
+  --input: oklch(0.92 0.012 230);
+  --ring: oklch(0.55 0.10 240);
 
-  --sidebar: oklch(0.99 0.005 90);
-  --sidebar-foreground: oklch(0.25 0.02 200);
-  --sidebar-accent: oklch(0.94 0.03 190);
-  --sidebar-border: oklch(0.9 0.012 100);
+  --sidebar: oklch(0.99 0.006 230);
+  --sidebar-foreground: oklch(0.23 0.04 245);
+  --sidebar-accent: oklch(0.94 0.035 230);
+  --sidebar-border: oklch(0.9 0.012 230);
 }
 
 @layer base {
@@ -93,8 +94,8 @@
     color: var(--color-foreground);
     font-feature-settings: "ss01", "cv11";
     background-image:
-      radial-gradient(circle at 0% 0%, oklch(0.93 0.04 190 / 0.35), transparent 45%),
-      radial-gradient(circle at 100% 100%, oklch(0.93 0.06 75 / 0.25), transparent 50%);
+      radial-gradient(circle at 0% 0%, oklch(0.85 0.06 230 / 0.35), transparent 45%),
+      radial-gradient(circle at 100% 100%, oklch(0.80 0.08 210 / 0.25), transparent 50%);
     background-attachment: fixed;
   }
 }
