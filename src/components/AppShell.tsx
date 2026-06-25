@@ -1,9 +1,9 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import {
   LayoutDashboard, Users, Stethoscope, FilePlus2, MessageSquare,
-  Bell, BarChart3, Wallet, Settings, PawPrint, Search, LogOut, Plus
+  Bell, BarChart3, Wallet, Settings, PawPrint, Search, LogOut, Plus, Menu, X
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 const NAV = [
   { to: "/app/dashboard", label: "داشبورد", icon: LayoutDashboard },
