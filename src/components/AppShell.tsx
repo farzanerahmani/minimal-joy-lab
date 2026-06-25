@@ -97,10 +97,17 @@ export function AppShell({ children, title, subtitle, action }: {
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Topbar */}
         <header className="sticky top-0 z-10 bg-background/70 backdrop-blur border-b border-border">
-          <div className="flex items-center gap-4 px-5 sm:px-8 py-4">
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold">{title}</h1>
-              {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+          <div className="flex items-center gap-3 px-5 sm:px-8 py-4">
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="lg:hidden h-9 w-9 rounded-lg border border-border bg-card hover:bg-accent flex items-center justify-center"
+              aria-label="منو"
+            >
+              <Menu className="h-4 w-4" />
+            </button>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg sm:text-xl font-bold truncate">{title}</h1>
+              {subtitle && <p className="text-xs text-muted-foreground mt-0.5 truncate">{subtitle}</p>}
             </div>
             <div className="flex-1 max-w-md mx-auto hidden md:block">
               <div className="relative">
