@@ -41,45 +41,45 @@
 }
 
 :root {
-  --radius: 1rem;
-  /* Warm cream background with a friendly glow */
-  --background: oklch(0.985 0.014 75);
-  --foreground: oklch(0.22 0.05 260);
+  --radius: 0.75rem;
+  /* Clean cool gray background — VETport style */
+  --background: oklch(0.975 0.006 250);
+  --foreground: oklch(0.18 0.04 260);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.05 260);
+  --card-foreground: oklch(0.18 0.04 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.05 260);
+  --popover-foreground: oklch(0.18 0.04 260);
 
-  /* Warm orange — playful, energetic, pet-friendly */
-  --primary: oklch(0.70 0.19 45);
-  --primary-foreground: oklch(0.99 0.01 80);
-  --primary-soft: oklch(0.94 0.06 60);
+  /* Deep navy — trustworthy, medical, brand-forward */
+  --primary: oklch(0.24 0.07 260);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --primary-soft: oklch(0.93 0.03 250);
 
-  --secondary: oklch(0.96 0.03 60);
-  --secondary-foreground: oklch(0.30 0.08 40);
+  --secondary: oklch(0.96 0.012 250);
+  --secondary-foreground: oklch(0.24 0.07 260);
 
-  --muted: oklch(0.96 0.015 70);
-  --muted-foreground: oklch(0.5 0.04 260);
+  --muted: oklch(0.955 0.01 250);
+  --muted-foreground: oklch(0.48 0.03 255);
 
-  /* Turquoise accent — fresh and vivid */
-  --accent: oklch(0.86 0.09 190);
-  --accent-foreground: oklch(0.28 0.08 210);
+  /* Teal accent — the signature VETport highlight */
+  --accent: oklch(0.66 0.11 190);
+  --accent-foreground: oklch(0.99 0.005 250);
 
-  --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.99 0.01 80);
-  --success: oklch(0.72 0.16 165);
-  --warning: oklch(0.82 0.16 85);
-  --info: oklch(0.70 0.14 220);
+  --destructive: oklch(0.60 0.20 25);
+  --destructive-foreground: oklch(0.99 0.005 250);
+  --success: oklch(0.66 0.11 190);
+  --warning: oklch(0.80 0.14 80);
+  --info: oklch(0.62 0.11 230);
 
-  --border: oklch(0.9 0.02 60);
-  --input: oklch(0.93 0.02 60);
-  --ring: oklch(0.70 0.19 45);
+  --border: oklch(0.90 0.012 250);
+  --input: oklch(0.93 0.012 250);
+  --ring: oklch(0.66 0.11 190);
 
-  --sidebar: oklch(0.99 0.012 70);
-  --sidebar-foreground: oklch(0.25 0.05 260);
-  --sidebar-accent: oklch(0.94 0.06 55);
-  --sidebar-border: oklch(0.9 0.02 60);
+  --sidebar: oklch(0.24 0.07 260);
+  --sidebar-foreground: oklch(0.97 0.008 250);
+  --sidebar-accent: oklch(0.66 0.11 190);
+  --sidebar-border: oklch(0.30 0.06 260);
 }
 
 @layer base {
@@ -94,8 +94,8 @@
     color: var(--color-foreground);
     font-feature-settings: "ss01", "cv11";
     background-image:
-      radial-gradient(circle at 0% 0%, oklch(0.85 0.14 55 / 0.35), transparent 45%),
-      radial-gradient(circle at 100% 100%, oklch(0.82 0.12 190 / 0.30), transparent 50%);
+      radial-gradient(circle at 0% 0%, oklch(0.66 0.11 190 / 0.14), transparent 45%),
+      radial-gradient(circle at 100% 100%, oklch(0.24 0.07 260 / 0.10), transparent 50%);
     background-attachment: fixed;
   }
 }
