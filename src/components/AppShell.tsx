@@ -24,6 +24,8 @@ export function AppShell({ children, title, subtitle, action }: {
 }) {
   const loc = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  useAppShortcuts(setPaletteOpen);
   const SidebarBody = (
     <>
       <div className="p-5 flex items-center gap-3">
