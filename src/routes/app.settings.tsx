@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
 import { AppShell, Card, PrimaryButton } from "@/components/AppShell";
-import { Clock, MessageSquare, Bell, Building2, Save, Plus, Trash2 } from "lucide-react";
+import { Clock, MessageSquare, Bell, Building2, Save, Plus, Trash2, Check, Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/app/settings")({
   head: () => ({ meta: [{ title: "تنظیمات کلینیک — پت‌کر" }, { name: "description", content: "ساعت کاری، قالب پیامک و زمان‌بندی یادآور." }] }),
