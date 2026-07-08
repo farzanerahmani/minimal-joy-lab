@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
 import { AppShell, Card, PrimaryButton } from "@/components/AppShell";
-import { Clock, MessageSquare, Bell, Building2, Save, Plus, Trash2 } from "lucide-react";
+import { Clock, MessageSquare, Bell, Building2, Save, Plus, Trash2, Check, Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/app/settings")({
   head: () => ({ meta: [{ title: "تنظیمات کلینیک — پت‌کر" }, { name: "description", content: "ساعت کاری، قالب پیامک و زمان‌بندی یادآور." }] }),
@@ -47,20 +48,76 @@ function Settings() {
 }
 
 function ClinicInfo() {
+  const [data, setData] = useState({
+    name: "کلینیک دامپزشکی پارسا",
+    phone: "۰۲۱-۸۸۰۰۰۰۰۰",
+    email: "info@parsa.vet",
+    tax: "۱۴۰۰۲۲۳۳۴۴۵۵",
+    address: "تهران، خیابان ولیعصر، پلاک ۱۲۳",
+  });
+
   return (
     <Card className="p-6 max-w-3xl">
       <h3 className="font-semibold mb-1">اطلاعات کلینیک</h3>
-      <p className="text-xs text-muted-foreground mb-5">این اطلاعات در نسخه‌ها، پیامک‌ها و فاکتورها نمایش داده می‌شود.</p>
-      <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="نام کلینیک" defaultValue="کلینیک دامپزشکی پارسا" />
-        <Field label="شماره تماس" defaultValue="۰۲۱-۸۸۰۰۰۰۰۰" />
-        <Field label="ایمیل" defaultValue="info@parsa.vet" />
-        <Field label="کد ملی / مالیاتی" defaultValue="۱۴۰۰۲۲۳۳۴۴۵۵" />
+      <p className="text-xs text-muted-foreground mb-5">
+        روی هر مقدار کلیک کنید تا در همان جا ویرایش شود — تغییرات فوری اعمال می‌شوند و می‌توانید فوراً بازگردانی کنید.
+      </p>
+      <div className="grid sm:grid-cols-2 gap-2">
+        <InlineField label="نام کلینیک" value={data.name} onSave={(v) => setData({ ...data, name: v })} />
+        <InlineField label="شماره تماس" value={data.phone} onSave={(v) => setData({ ...data, phone: v })} />
+        <InlineField label="ایمیل" value={data.email} onSave={(v) => setData({ ...data, email: v })} />
+        <InlineField label="کد ملی / مالیاتی" value={data.tax} onSave={(v) => setData({ ...data, tax: v })} />
         <div className="sm:col-span-2">
-          <Field label="آدرس" defaultValue="تهران، خیابان ولیعصر، پلاک ۱۲۳" />
+          <InlineField label="آدرس" value={data.address} onSave={(v) => setData({ ...data, address: v })} />
         </div>
       </div>
     </Card>
+  );
+}
+
+function InlineField({ label, value, onSave }: { label: string; value: string; onSave: (v: string) => void }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(value);
+  const prevRef = useRef(value);
+
+  const commit = () => {
+    setEditing(false);
+    if (draft === value) return;
+    prevRef.current = value;
+    onSave(draft);
+    toast.success(`«${label}» به‌روزرسانی شد`, {
+      action: {
+        label: "بازگردانی",
+        onClick: () => { onSave(prevRef.current); setDraft(prevRef.current); },
+      },
+    });
+  };
+
+  return (
+    <div className="group flex items-start justify-between gap-3 rounded-xl px-3.5 py-2.5 hover:bg-muted/50 transition cursor-text"
+         onClick={() => !editing && setEditing(true)}>
+      <div className="min-w-0 flex-1">
+        <div className="text-[11px] font-medium text-muted-foreground mb-1">{label}</div>
+        {editing ? (
+          <input
+            autoFocus
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={commit}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") { setDraft(value); setEditing(false); }
+            }}
+            className="w-full rounded-lg border border-primary/40 bg-card px-2 py-1 text-sm outline-none focus:ring-2 focus:ring-primary/20"
+          />
+        ) : (
+          <div className="text-sm font-medium truncate">{value}</div>
+        )}
+      </div>
+      <div className="pt-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition">
+        {editing ? <Check className="h-3.5 w-3.5 text-success" /> : <Pencil className="h-3.5 w-3.5" />}
+      </div>
+    </div>
   );
 }
 

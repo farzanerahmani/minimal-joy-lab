@@ -1,9 +1,10 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import {
   LayoutDashboard, Users, Stethoscope, FilePlus2, MessageSquare,
-  Bell, BarChart3, Wallet, Settings, PawPrint, Search, LogOut, Plus, Menu, X
+  Bell, BarChart3, Wallet, Settings, PawPrint, Search, LogOut, Plus, Menu, X, Command
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { CommandPalette, useAppShortcuts } from "@/components/CommandPalette";
 
 const NAV = [
   { to: "/app/dashboard", label: "داشبورد", icon: LayoutDashboard },
@@ -23,6 +24,8 @@ export function AppShell({ children, title, subtitle, action }: {
 }) {
   const loc = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  useAppShortcuts(setPaletteOpen);
   const SidebarBody = (
     <>
       <div className="p-5 flex items-center gap-3">
@@ -114,16 +117,26 @@ export function AppShell({ children, title, subtitle, action }: {
               {subtitle && <p className="text-xs text-muted-foreground mt-0.5 truncate">{subtitle}</p>}
             </div>
             <div className="flex-1 max-w-md mx-auto hidden md:block">
-              <div className="relative">
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  placeholder="جستجوی بیمار، نسخه یا صاحب…"
-                  className="w-full rounded-full border border-input bg-card pr-9 pl-4 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
-                />
-              </div>
+              <button
+                onClick={() => setPaletteOpen(true)}
+                className="w-full group relative flex items-center gap-2 rounded-full border border-input bg-card pr-9 pl-2 py-2 text-sm text-muted-foreground hover:border-primary/40 hover:bg-accent transition"
+              >
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4" />
+                <span className="flex-1 text-right">جستجو یا اجرای عملیات…</span>
+                <kbd className="hidden sm:inline-flex items-center gap-1 rounded-md border border-border bg-background px-1.5 py-0.5 text-[10px] font-mono">
+                  <Command className="h-3 w-3" />K
+                </kbd>
+              </button>
             </div>
             <div className="flex items-center gap-2">
               {action}
+              <button
+                onClick={() => setPaletteOpen(true)}
+                className="md:hidden h-9 w-9 rounded-full border border-border bg-card hover:bg-accent flex items-center justify-center"
+                aria-label="جستجو"
+              >
+                <Search className="h-4 w-4" />
+              </button>
               <button className="relative h-9 w-9 rounded-full border border-border bg-card hover:bg-accent flex items-center justify-center">
                 <Bell className="h-4 w-4" />
                 <span className="absolute top-1.5 left-1.5 h-2 w-2 rounded-full bg-destructive" />
@@ -132,8 +145,19 @@ export function AppShell({ children, title, subtitle, action }: {
           </div>
         </header>
 
-        <main className="flex-1 p-5 sm:p-8">{children}</main>
+        <main className="flex-1 p-5 sm:p-8 pb-24 lg:pb-8">{children}</main>
+
+        {/* Mobile FAB */}
+        <button
+          onClick={() => setPaletteOpen(true)}
+          className="lg:hidden fixed bottom-5 left-5 z-30 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 flex items-center justify-center active:scale-95 transition"
+          aria-label="عملیات سریع"
+        >
+          <Plus className="h-6 w-6" />
+        </button>
       </div>
+
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>
   );
 }
